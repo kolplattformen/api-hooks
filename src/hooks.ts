@@ -25,6 +25,7 @@ import {
 import { useApi } from './context'
 import { loadAction } from './actions'
 import store from './store'
+import { merge } from './childlists'
 
 interface StoreSelector<T> {
   (state: EntityStoreRootState): EntityMap<T>
@@ -76,7 +77,15 @@ const hook = <T>(
   }
   useEffect(() => { load() }, [isLoggedIn])
 
+  let mounted: boolean
+  useEffect(() => {
+    mounted = true
+    return () => { mounted = false }
+  }, [])
+
   const listener = () => {
+    if (!mounted) return
+
     const newState = select(getState())
     if (newState.status !== state.status
       || newState.data !== state.data
@@ -184,3 +193,25 @@ export const useUser = () => hook<User>(
   (s) => s.user,
   (api) => () => api.getUser(),
 )
+
+export const useChildList = (): EntityHookResult<Child[]> => {
+  const {
+    data: etjanstData, status, error, reload: etjanstReload,
+  } = useEtjanstChildren()
+  const { data: skola24Data, reload: skola24Reload } = useSkola24Children()
+
+  const [data, setData] = useState<Child[]>([])
+  const reload = () => {
+    etjanstReload()
+    skola24Reload()
+  }
+
+  useEffect(() => {
+    if (!etjanstData.length) return
+    setData(merge(etjanstData, skola24Data))
+  }, [etjanstData, skola24Data])
+
+  return {
+    data, status, error, reload,
+  }
+}
