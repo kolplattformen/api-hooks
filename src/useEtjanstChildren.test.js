@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { ApiProvider } from './provider'
-import { useChildList } from './hooks'
+import { useEtjanstChildren } from './hooks'
 import store from './store'
 import init from './__mocks__/@skolplattformen/embedded-api'
 import createStorage from './__mocks__/AsyncStorage'
@@ -9,7 +9,7 @@ import reporter from './__mocks__/reporter'
 
 const pause = (ms = 0) => new Promise((r) => setTimeout(r, ms))
 
-describe('useChildList()', () => {
+describe('useEtjanstChildren()', () => {
   let api
   let storage
   let response
@@ -32,7 +32,7 @@ describe('useChildList()', () => {
       })
     ))
     storage = createStorage({
-      '123_children': [{ id: 2 }],
+      '123_etjanst_children': [{ id: 2 }],
     }, 2)
   })
   afterEach(async () => {
@@ -42,14 +42,14 @@ describe('useChildList()', () => {
     })
   })
   it('returns correct initial value', () => {
-    const { result } = renderHook(() => useChildList(), { wrapper })
+    const { result } = renderHook(() => useEtjanstChildren(), { wrapper })
 
     expect(result.current.status).toEqual('pending')
   })
   it('calls api', async () => {
     await act(async () => {
       api.isLoggedIn = true
-      const { waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -60,16 +60,16 @@ describe('useChildList()', () => {
   it('only calls api once', async () => {
     await act(async () => {
       api.isLoggedIn = true
-      renderHook(() => useChildList(), { wrapper })
-      const { waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      renderHook(() => useEtjanstChildren(), { wrapper })
+      const { waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
-      renderHook(() => useChildList(), { wrapper })
+      renderHook(() => useEtjanstChildren(), { wrapper })
       await waitForNextUpdate()
-      renderHook(() => useChildList(), { wrapper })
+      renderHook(() => useEtjanstChildren(), { wrapper })
       await waitForNextUpdate()
 
-      const { result } = renderHook(() => useChildList(), { wrapper })
+      const { result } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       expect(api.getChildren).toHaveBeenCalledTimes(1)
       expect(result.current.status).toEqual('loaded')
@@ -78,7 +78,7 @@ describe('useChildList()', () => {
   it('calls cache', async () => {
     await act(async () => {
       api.isLoggedIn = true
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -89,7 +89,7 @@ describe('useChildList()', () => {
   it('updates status to loading', async () => {
     await act(async () => {
       api.isLoggedIn = true
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -100,7 +100,7 @@ describe('useChildList()', () => {
   it('updates status to loaded', async () => {
     await act(async () => {
       api.isLoggedIn = true
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -114,14 +114,14 @@ describe('useChildList()', () => {
       api.isLoggedIn = true
       api.isFake = false
 
-      const { waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
       await waitForNextUpdate()
       await pause(20)
 
-      expect(storage.cache['123_children']).toEqual('[{"id":1}]')
+      expect(storage.cache['123_etjanst_children']).toEqual('[{"id":1}]')
     })
   })
   it('does not store in cache if fake', async () => {
@@ -129,13 +129,13 @@ describe('useChildList()', () => {
       api.isLoggedIn = true
       api.isFake = true
 
-      const { waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
       await pause(20)
 
-      expect(storage.cache['123_children']).toEqual('[{"id":2}]')
+      expect(storage.cache['123_etjanst_children']).toEqual('[{"id":2}]')
     })
   })
   it('retries if api fails', async () => {
@@ -144,7 +144,7 @@ describe('useChildList()', () => {
       const error = new Error('fail')
       api.getChildren.mockRejectedValueOnce(error)
 
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -172,7 +172,7 @@ describe('useChildList()', () => {
       api.getChildren.mockRejectedValueOnce(error)
       api.getChildren.mockRejectedValueOnce(error)
 
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -199,7 +199,7 @@ describe('useChildList()', () => {
       const error = new Error('fail')
       api.getChildren.mockRejectedValueOnce(error)
 
-      const { result, waitForNextUpdate } = renderHook(() => useChildList(), { wrapper })
+      const { result, waitForNextUpdate } = renderHook(() => useEtjanstChildren(), { wrapper })
 
       await waitForNextUpdate()
       await waitForNextUpdate()
@@ -207,7 +207,7 @@ describe('useChildList()', () => {
 
       expect(result.current.error).toEqual(error)
 
-      expect(reporter.error).toHaveBeenCalledWith(error, 'Error getting CHILDREN from API')
+      expect(reporter.error).toHaveBeenCalledWith(error, 'Error getting ETJANST_CHILDREN from API')
     })
   })
 })

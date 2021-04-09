@@ -2,6 +2,8 @@ import {
   CalendarItem,
   Child,
   Classmate,
+  EtjanstChild,
+  Skola24Child,
   MenuItem,
   NewsItem,
   Notification,
@@ -65,7 +67,8 @@ const createReducer = <T>(entity: EntityName): EntityReducer<T> => {
 }
 
 export const user = createReducer<User>('USER')
-export const children = createReducer<Child[]>('CHILDREN')
+export const etjanstChildren = createReducer<EtjanstChild[]>('ETJANST_CHILDREN')
+export const skola24Children = createReducer<Skola24Child[]>('SKOLA24_CHILDREN')
 export const calendar = createReducer<CalendarItem[]>('CALENDAR')
 export const classmates = createReducer<Classmate[]>('CLASSMATES')
 export const menu = createReducer<MenuItem[]>('MENU')

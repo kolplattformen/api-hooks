@@ -23,14 +23,14 @@
     "redux": "^4.0.5"
   },
   "peerDependencies": {
-    "@skolplattformen/embedded-api": "^2.0.0",
+    "@skolplattformen/embedded-api": "^4.0.0",
     "react": "^16.11.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@skolplattformen/embedded-api": "^2.0.0",
+    "@skolplattformen/embedded-api": "^4.0.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/react-hooks": "^5.1.0",

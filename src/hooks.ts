@@ -5,10 +5,13 @@ import {
   CalendarItem,
   Child,
   Classmate,
+  EtjanstChild,
   MenuItem,
   NewsItem,
   Notification,
   ScheduleItem,
+  Skola24Child,
+  TimetableEntry,
   User,
 } from '@skolplattformen/embedded-api'
 import {
@@ -94,12 +97,20 @@ const hook = <T>(
   }
 }
 
-export const useChildList = () => hook<Child[]>(
-  'CHILDREN',
-  'children',
+export const useEtjanstChildren = () => hook<EtjanstChild[]>(
+  'ETJANST_CHILDREN',
+  'etjanst_children',
   [],
-  (s) => s.children,
+  (s) => s.etjanstChildren,
   (api) => () => api.getChildren(),
+)
+
+export const useSkola24Children = () => hook<Skola24Child[]>(
+  'SKOLA24_CHILDREN',
+  'skola24_children',
+  [],
+  (s) => s.skola24Children,
+  (api) => () => api.getSkola24Children(),
 )
 
 export const useCalendar = (child: Child) => hook<CalendarItem[]>(
@@ -156,6 +167,14 @@ export const useSchedule = (child: Child, from: string, to: string) => hook<Sche
   [],
   (s) => s.schedule,
   (api) => () => api.getSchedule(child, from, to),
+)
+
+export const useTimetable = (child: Skola24Child, week: number, year: number) => hook<TimetableEntry[]>(
+  'TIMETABLE',
+  `timetable_${child.personGuid}_${week}_${year}`,
+  [],
+  (s) => s.timetable,
+  (api) => () => api.getTimetable(child, week, year),
 )
 
 export const useUser = () => hook<User>(
