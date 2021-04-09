@@ -1,6 +1,5 @@
 import {
   CalendarItem,
-  Child,
   Classmate,
   EtjanstChild,
   Skola24Child,
@@ -9,6 +8,7 @@ import {
   Notification,
   ScheduleItem,
   User,
+  TimetableEntry,
 } from '@skolplattformen/embedded-api'
 import { EntityName, EntityReducer, EntityState } from './types'
 
@@ -76,3 +76,4 @@ export const news = createReducer<NewsItem[]>('NEWS')
 export const newsDetails = createReducer<NewsItem[]>('NEWS_DETAILS')
 export const notifications = createReducer<Notification[]>('NOTIFICATIONS')
 export const schedule = createReducer<ScheduleItem[]>('SCHEDULE')
+export const timetable = createReducer<TimetableEntry[]>('TIMETABLE')

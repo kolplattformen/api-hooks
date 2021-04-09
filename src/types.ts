@@ -1,6 +1,5 @@
 import {
   Api,
-  Child,
   EtjanstChild,
   Skola24Child,
   User,
@@ -79,7 +78,6 @@ export type EntityReducer<T> = Reducer<EntityMap<T>, EntityAction<T>>
 export interface EntityStoreRootState {
   etjanstChildren: EntityMap<EtjanstChild[]>
   skola24Children: EntityMap<Skola24Child[]>
-  children?: EntityMap<Child[]>
   user: EntityMap<User>
   calendar: EntityMap<CalendarItem[]>,
   classmates: EntityMap<Classmate[]>,

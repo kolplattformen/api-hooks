@@ -10,6 +10,7 @@ import {
   notifications,
   schedule,
   skola24Children,
+  timetable,
   user,
 } from './reducers'
 
@@ -23,6 +24,7 @@ const appReducer = combineReducers({
   notifications,
   schedule,
   skola24Children,
+  timetable,
   user,
 })
 const rootReducer: typeof appReducer = (state, action) => {
