@@ -1309,12 +1309,11 @@
   resolved "https://registry.yarnpkg.com/@skolplattformen/curriculum/-/curriculum-1.3.0.tgz#841e2ff0095e39e174cffdd0b8a81a17956de7ed"
   integrity sha512-nuwZX45gHe5JaiYfygDP1HmbhAJOEXuuWwR04tNAnl/PaDGqJscfzKt8YD2SL+MHqi3LARjSKLa4ms4SxVQFyw==
 
-"@skolplattformen/embedded-api@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@skolplattformen/embedded-api/-/embedded-api-5.0.0.tgz#185bd131191e3dba08b0601d67ac1198701a3c85"
-  integrity sha512-JSGhzoqbielu3lac0HPvPHuhA2u6fwX3ukyAqf8AO9DOVPsuOy7MsrRaWTNDaVv/94qZamDG5zpIh70sQ5/zlg==
+"@skolplattformen/embedded-api@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@skolplattformen/embedded-api/-/embedded-api-5.1.0.tgz#924729bf82aad4e61663f54254b107cd9f6e8812"
+  integrity sha512-lne82FYZMx+fSJmWKA7gFtdsuL+t28HaRTGoqIZ+8Ys29ypU8uxHR7KMMo7rcykgKEe0ALWF3Vlmr66FrAG4Rg==
   dependencies:
-    "@skolplattformen/curriculum" "^1.3.0"
     camelcase-keys "^6.2.2"
     change-case "^4.1.2"
     events "^3.3.0"
